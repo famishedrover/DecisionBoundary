@@ -9,6 +9,7 @@ class dist :
 		self.dist_01 = None
 		self.dist_02 = None
 		self.data = None
+		self.labels = None
 		print 'Dist Created.'
 
 	def getDist(self) :
@@ -30,6 +31,29 @@ class dist :
 		self.dist_02 = dist_02
 		print 'Dist Generated.'
 	
+	def getLabels (self) :
+		labels = np.zeros((self.data.shape[0],))
+		labels[:self.dist_01.shape[0]] = 1
+		self.labels = labels
+
+	def plotByLabel (self) :
+
+		if self.labels is None :
+			print 'No Labels Found !'
+		else :
+			import matplotlib.pyplot as plt
+			print 'Label 0 :','green'
+			print 'Label 1 :','red'
+			plt.figure(0).canvas.set_window_title("PlotByLabels")
+			for ix in range(self.data.shape[0]) :
+				if self.labels[ix] == 0 :
+					plt.scatter(self.data[ix,0] , self.data[ix,1] , color = 'green')
+				else :
+					plt.scatter(self.data[ix,0] , self.data[ix,1] , color = 'red')
+			plt.show()
+			print 'Labels Plotted'		
+
+
 	def plotDist(self) :
 		if self.dist_01 is  None or self.dist_02 is  None :
 			print 'No distributions Found !'
@@ -37,12 +61,18 @@ class dist :
 			import matplotlib.pyplot as plt
 			print 'dist_01 :','red'
 			print 'dist_02 :','green'
+			plt.figure(0).canvas.set_window_title("DistPlot")
 			plt.scatter(self.dist_01[:,0] , self.dist_01[:,1] , color = 'red')
 			plt.scatter(self.dist_02[:,0] , self.dist_02[:,1] , color = 'green')
 			plt.show()
 			print 'Dist Plotted.'
 
+
+
+
 if __name__ == "__main__" :
-	d = dist(size = 5000)
+	d = dist()
 	d.getDist()
 	d.plotDist()
+	d.getLabels()
+	d.plotByLabel()
