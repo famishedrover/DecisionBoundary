@@ -35,6 +35,8 @@ class dist :
 		labels = np.zeros((self.data.shape[0],))
 		labels[:self.dist_01.shape[0]] = 1
 		self.labels = labels
+		print 'label mean :'
+		print labels.mean()
 
 	def plotByLabel (self) :
 
@@ -66,8 +68,6 @@ class dist :
 			plt.scatter(self.dist_02[:,0] , self.dist_02[:,1] , color = 'green')
 			plt.show()
 			print 'Dist Plotted.'
-
-
 
 
 if __name__ == "__main__" :
